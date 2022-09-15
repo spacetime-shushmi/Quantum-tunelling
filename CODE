@@ -1,0 +1,32 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+from scipy import signal
+
+
+#fixed axis for plotting the data 
+X_AXIX_FIXED = np.linspace(-2, 2, 400)
+
+
+def animate(i):
+    # USING translation to move to the right of the axis in each loop 
+    
+    #data of the wave to be moved 
+    x = np.linspace(-2, 2, 400) - i*(0.05)
+    
+    #setting up gaussian distributed wave
+    # 'signal.gausspulse' Returns a Gaussian modulated sinusoid
+    Gaussian_wave_packet = signal.gausspulse(x, frequency = 5, barrier_width = 0.3, retquad = False, retenv = True)
+
+    ax.plot(X_AXIX_FIXED, Gaussian_wave_packet)
+
+    ax.set(xlim = (-2, 2), ylim = (-2, 2))
+    ax.grid()
+
+
+fig, ax = plt.subplots()
+
+anim = FuncAnimation(fig, animate,  interval=5000, frames=5000, repeat = False)
+
+plt.show()
+
