@@ -1,0 +1,16 @@
+ for i in range(self.points):
+            #specifying the diagonal elements of the matrix
+            laplace[i,i]=2
+            
+            if i != 0:
+                laplace[i-1,i]=-1
+                laplace[i,i-1]=-1
+        
+        
+        H = (1/(2*((self.dx)**2)) * laplace) + np.diag(self.v)
+        
+        
+        Matrix_1 = (np.eye(np.shape(H)[0])+(dt/2j)*H)
+        Matrix_2 = np.linalg.inv(np.eye(np.shape(H)[0]) - dt/2j * H)
+        self.Matrix_product = np.matmul(Matrix_2,Matrix_1)
+        
